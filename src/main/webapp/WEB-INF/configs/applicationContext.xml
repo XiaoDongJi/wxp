@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/data/mongo
+		http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.sty">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	
+	<!-- 数据库实例bean -->
+	<mongo:mongo host="101.200.215.234" port="27017">
+		<mongo:options connections-per-host="8"
+			threads-allowed-to-block-for-connection-multiplier="4"
+			connect-timeout="1000" max-wait-time="1500" auto-connect-retry="true"
+			socket-keep-alive="true" socket-timeout="1500" slave-ok="true"
+			write-number="1" write-timeout="0" write-fsync="true" />
+	</mongo:mongo>
+
+	<!-- 连接sty数据库，用户绑定数据库 -->
+	<mongo:db-factory dbname="database" mongo-ref="mongo"
+		username="sty" password="sty1234" />
+		
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+	</bean>
+
+
+</beans>

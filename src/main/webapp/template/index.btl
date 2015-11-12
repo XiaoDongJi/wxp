@@ -1,0 +1,25 @@
+<%
+var a = "hello";
+var date = date(); 
+var i = 0;
+while(i<5){
+        print(i);
+        i++;
+}
+%>
+
+Today is ${date,dateFormat="yyyy-MM-dd"}.
+Today is ${date,dateFormat}
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>${a } WEB-INF下Beetl模板 </h1>
+
+</body>
+</html>
